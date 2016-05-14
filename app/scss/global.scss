@@ -1,0 +1,45 @@
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  border: 1px solid green;
+}
+
+.key-pad {
+  display: flex;
+  flex-wrap: wrap;
+  //border: 1px solid green;
+}
+
+.key-pad > div {
+  box-sizing: border-box;
+  line-height: 70px;
+  height: 70px;
+  width: 70px;
+  border-right: 1px solid red;
+  border-bottom: 1px solid red;
+  cursor: pointer;
+  font-size: 24px;
+  text-align: center;
+}
+
+.key-pad > div:nth-child(4n+1) {
+  border-left: 1px solid red;
+}
+
+.key-pad > div:nth-child(17) {
+  border-radius: 0 0 0 10px;
+}
+
+.key-pad > div:last-child {
+  width: 140px;
+  border-radius: 0 0 10px 0;
+}

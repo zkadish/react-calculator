@@ -7,12 +7,18 @@ const TARGET = process.env.npm_lifecycle_event;
 
 const PATHS = {
   app: path.join(__dirname, 'app'),
+  scss: path.join(__dirname, 'scss'),
   build: path.join(__dirname, 'build')
 };
+
+process.env.BABEL_ENV = TARGET;
 
 const common = {
   entry: {
     app: PATHS.app
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   output: {
     path: PATHS.build,
@@ -21,9 +27,22 @@ const common = {
   module: {
     loaders: [
       {
-        test: /\.css$/,
-        loaders: ['style', 'css'],
+        test: /\.js$/,
+        loaders: ['babel?cacheDirectory'],
         include: PATHS.app
+      },
+      {
+        test: /\.jsx$/,
+        loaders: ['babel?cacheDirectory'],
+        include: PATHS.app
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css']
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
       }
     ]
   }
