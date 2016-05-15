@@ -11,6 +11,14 @@ export function subtrackFn (x, y) {
   return cleanNum(parseFloat(x) - parseFloat(y))
 }
 
+export function multiplyFn (x, y) {
+  return cleanNum(parseFloat(x) * parseFloat(y))
+}
+
+export function divideFn (x, y) {
+  return cleanNum(parseFloat(x) / parseFloat(y))
+}
+
 // Toggle negitive and positive output numbers
 export function negativeNums (state) {
   if (state.output[0] === '-') {
