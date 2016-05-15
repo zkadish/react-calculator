@@ -1,6 +1,6 @@
-import '../scss/output.scss';
+import '../scss/output.scss'
 
-import React from 'react';
+import React from 'react'
 
 class Output extends React.Component {
   // This could be a state less function
@@ -17,7 +17,7 @@ class Output extends React.Component {
   }
 
   shouldComponentUpdate() {
-    return true;
+    return true
   }
 
   componentWillUpdate() {
@@ -32,4 +32,4 @@ class Output extends React.Component {
   }
 }
 
-export default Output;
+export default Output

@@ -27,9 +27,8 @@ export default class App extends React.Component {
       this.setState(newState)
     } else {
       let newState = commandHandler(btn, this.state)
-      console.log(newState)
       this.setState(newState)
-      console.log(this.state)
+      //console.log(this.state)
     }
   }
 
