@@ -1,4 +1,4 @@
-import {addFn, subtrackFn, multiplyFn, divideFn, negativeNums, equalFn} from './arithmaticHandler'
+import { addFn, subtrackFn, multiplyFn, divideFn, negativeNums, equalFn } from './arithmaticHandler'
 
 const minus = String.fromCharCode(8722)
 const times = String.fromCharCode(215)

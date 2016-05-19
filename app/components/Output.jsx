@@ -20,12 +20,7 @@ class Output extends React.Component {
     return true
   }
 
-  componentWillUpdate() {
-
-  }
-
   render() {
-    //console.log('Output: ', this.state.value, this.props.output)
     return(
       <div className="output">{this.props.output}</div>
     )

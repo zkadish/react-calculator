@@ -21,10 +21,12 @@ export function divideFn (x, y) {
 
 // Toggle negitive and positive output numbers
 export function negativeNums (state) {
-  if (state.output[0] === '-') {
-    state.output = state.output.slice(1)
+  let output = state.output.toString()
+
+  if (output[0] === '-') {
+    state.output = output.slice(1)
   } else {
-    state.output = '-' + state.output
+    state.output = '-' + output
   }
 
   if (state.secondNum) {
