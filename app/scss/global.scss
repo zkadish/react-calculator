@@ -10,7 +10,7 @@ body {
   height: 100%;
   font-family: 'Montserrat', sans-serif;
   font-weight: lighter;
-  border: 1px solid green;
+  //border: 1px solid green;
 }
 
 .key-pad {
@@ -24,15 +24,28 @@ body {
   line-height: 70px;
   height: 70px;
   width: 70px;
-  border-right: 1px solid red;
-  border-bottom: 1px solid red;
+  background: rgb(240, 240, 240);
+  border-right: 1px solid rgb(160, 160, 160);
+  border-bottom: 1px solid rgb(160, 160, 160);
   cursor: pointer;
   font-size: 24px;
   text-align: center;
 }
 
 .key-pad > div:nth-child(4n+1) {
-  border-left: 1px solid red;
+  border-left: 1px solid rgb(160, 160, 160);
+}
+
+.key-pad > div:nth-child(4n+4) {
+  background: rgb(250, 160, 60);
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+}
+
+.key-pad > div:nth-child(1),
+.key-pad > div:nth-child(2),
+.key-pad > div:nth-child(3) {
+  background: rgb(204, 204, 204);
 }
 
 .key-pad > div:nth-child(17) {
