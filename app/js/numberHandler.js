@@ -1,5 +1,5 @@
 function numberHandler(btn, state) {
-  let hasDecimal = state.output.includes('.')
+  let hasDecimal = state.output.toString().includes('.')
 
   if (state.output === '0') {
     state.output = btn
