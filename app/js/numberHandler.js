@@ -1,4 +1,5 @@
 function numberHandler(btn, state) {
+  let hasDecimal = state.output.includes('.')
 
   if (state.output === '0') {
     state.output = btn
@@ -6,8 +7,17 @@ function numberHandler(btn, state) {
   }
 
   if (state.arithmatic) {
-    state.output = state.secondNum = btn
+    state.secondNum = state.output = btn
     state.arithmatic = false
+    return state
+  }
+
+  if (!hasDecimal && state.output.length >= 16 || hasDecimal && state.output.length >= 17) {
+    return state
+  }
+
+  if (state.secondNum) {
+    state.secondNum = state.output += btn
     return state
   }
 

@@ -1,9 +1,32 @@
+import './MathRound.js'
+
 // keep number to 14 places and remove trialing zeros
 function cleanNum (num) {
-  return Number(num.toPrecision(14))
+  let numLength = num.toString().length
+  let hasDecimal = num.toString().includes('.')
+
+  if (!hasDecimal && numLength <= 16) {
+    return Number(num)
+  }
+
+  if (hasDecimal && numLength <= 17) {
+    return Number(num)
+  }
+
+  if (!hasDecimal) {
+    return Number(num.toString().slice(0, 15))
+  }
+
+  if (hasDecimal) {
+    let numArray = num.toString().split('.')
+    let roundFactor = -(16 - numArray[0].length)
+    return Math.round10(num, roundFactor)
+  }
+
 }
 
 export function addFn (x, y) {
+  //debugger
   return cleanNum(parseFloat(x) + parseFloat(y))
 }
 
