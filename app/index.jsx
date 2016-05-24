@@ -1,8 +1,14 @@
 import './scss/global.scss'
 
 import React from 'react'
-import ReactDom from 'react-dom'
+import { render } from 'react-dom'
+import createStore from './components/redux/create-store'
+
 import App from './components/App'
 
+const store = createStore()
 
-ReactDom.render(<App />, document.getElementById('app'))
+render(
+  <App store={store}/>,
+  document.getElementById('app')
+)
