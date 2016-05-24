@@ -59,6 +59,12 @@ export function negativeNums (state) {
 
 export function equalFn (arithmatic, state) {
   let result = null
+
+  // user hits equals without hitting anything else
+  if (typeof arithmatic !== 'function') {
+    return '0'
+  }
+
   // if user does not enter a second num and presses the equals button
   if (!state.secondNum) {
     result = arithmatic(state.output, state.firstNum)
