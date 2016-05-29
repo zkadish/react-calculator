@@ -1,13 +1,16 @@
-// export const actionTest = function () {
-//   return {
-//     type: 'TEST_ACTION',
-//     value: 'Action Test!'
-//   }
-// }
 
-export const ACTION_TEST = {
-  type: 'TEST_ACTION',
-  value: 'Action Test!'
+export const OUTPUT = (string = '0') => {
+  return {
+    type: 'OUTPUT',
+    value: string
+  }
+}
+
+export const BTN_PRESS = (btn) => {
+  return {
+    type: 'BTN_PRESS',
+    value: btn
+  }
 }
 
 export const COMMAND_PRESS = (btn) => {

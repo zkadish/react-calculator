@@ -1,5 +1,3 @@
-import '../scss/header.scss'
-
 import React from 'react'
 
 export default function (props) {

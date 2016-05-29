@@ -1,25 +1,35 @@
 import React from 'react'
+import { BTN_PRESS } from './redux/actions'
+import { connect } from 'react-redux'
 
-import '../scss/button.scss'
+function Button ({ children, onClick }) {
 
-class Button extends React.Component {
-  constructor() {
-    super()
-  }
+  return(
+    <div className="calc-btn"
+         onClick={onClick}>
+      { children }
+    </div>
+  )
+}
 
-  onclick (e) {
-    this.props.btnPress(e.target.innerHTML)
-  }
-
-  render() {
-
-    return(
-      <div className="calc-btn"
-           onClick={this.onclick.bind(this)}>
-        { this.props.children }
-      </div>
-    )
+const mapStateToProps = (state, ownProps) => {
+  return {
+    state: state
   }
 }
 
-export default Button
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onClick: () => {
+      dispatch(BTN_PRESS(ownProps.children))
+      //console.log(ownProps.children)
+    }
+  }
+}
+
+const CalcButton = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Button)
+
+export default CalcButton
