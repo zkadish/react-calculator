@@ -24,7 +24,7 @@ class Output extends React.Component {
   }
 
   shouldComponentUpdate() {
-    //return true
+    return true
   }
 
   render() {
@@ -37,7 +37,7 @@ class Output extends React.Component {
 }
 
 const mapStateToProps = function (state) {
-  console.log(state)
+  //console.log(state)
   return {
     output: state.outputReducer.output
     //reduxState: state

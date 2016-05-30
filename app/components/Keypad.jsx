@@ -12,18 +12,20 @@ class Keypad extends React.Component {
   }
 
   render() {
-    let btnCallback = this.props.btnPress
+    //console.log(this.props)
+    let btnHandler = this.props.btnHandler
+    //let store = this.props.store
 
     var Layout = this.state.standardBtns.map(function (btn, i) {
       if (typeof btn !== 'string') {
         btn = String.fromCharCode(btn)
       }
-      return <Button btnPress={btnCallback} key={i}>{btn}</Button>
+      return <Button btnHandler={ btnHandler } key={i}>{btn}</Button>
     })
 
     return(
       <div className="key-pad">
-        {Layout}
+        { Layout }
       </div>
     )
   }
