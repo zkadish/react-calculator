@@ -1,6 +1,11 @@
 function numberHandler(btn, state) {
   let hasDecimal = state.output.toString().includes('.')
 
+  // prevent added 2 decimals
+  if (hasDecimal && btn === '.') {
+    return state
+  }
+
   if (state.output === '0') {
     state.output = btn
     return state
@@ -12,6 +17,7 @@ function numberHandler(btn, state) {
     return state
   }
 
+  // prevent user from added more then 16 numbers with a decimal
   if (!hasDecimal && state.output.length >= 16 || hasDecimal && state.output.length >= 17) {
     return state
   }
