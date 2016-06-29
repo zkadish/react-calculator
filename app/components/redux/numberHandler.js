@@ -1,27 +1,34 @@
 import * as Action from './actions'
+import { batchActions } from 'redux-batched-actions'
 
-const numberHandler = function (btn, store) {
-  const state = store.getState()
+const numberHandler = function (dispatch, getState) {
+
+  const state = getState()
+  let btn = state.keypad.activeBtn
   let output = state.outputReducer.output
   let secondNum = state.outputReducer.secondNum
   let hasDecimal = output.toString().includes('.')
-
+  let lastCommand = state.commandReducer.command
+  //console.log('lastCommand', lastCommand)
   // do not allow for more then one decimal
-  //debugger
   if (hasDecimal && btn === '.') {
     return
   }
 
-  if (output === '0') {
-    store.dispatch(Action.OUTPUT(btn))
-    store.dispatch(Action.FIRST_NUM(btn))
+  if (output === '0' || lastCommand === '=') {
+    dispatch(batchActions([
+      Action.OUTPUT(btn),
+      Action.FIRST_NUM(btn)
+    ]))
     return
   }
 
   if (state.commandReducer.startSecNum) {
-    store.dispatch(Action.OUTPUT(btn))
-    store.dispatch(Action.SECOND_NUM(btn))
-    store.dispatch(Action.START_SECOND_NUM(false))
+    dispatch(batchActions([
+      Action.OUTPUT(btn),
+      Action.SECOND_NUM(btn),
+      Action.START_SECOND_NUM(false)
+    ]))
     return
   }
 
@@ -29,12 +36,12 @@ const numberHandler = function (btn, store) {
     return
   }
 
-  store.dispatch(Action.OUTPUT(output += btn))
+  dispatch(Action.OUTPUT(output += btn))
 
   if (secondNum) {
-    store.dispatch(Action.SECOND_NUM(output))
+    dispatch(Action.SECOND_NUM(output))
   } else {
-    store.dispatch(Action.FIRST_NUM(output))
+    dispatch(Action.FIRST_NUM(output))
   }
 }
 

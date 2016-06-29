@@ -2,9 +2,7 @@ import React from 'react'
 import * as action from './redux/actions'
 import { connect } from 'react-redux'
 
-import numberHandler from './redux/numberHandler'
-
-function Button ({ children, onClick, btnHandler }) {
+function Button ({ children, onClick }) {
 
   return(
     <div className="calc-btn"
@@ -12,13 +10,6 @@ function Button ({ children, onClick, btnHandler }) {
       { children }
     </div>
   )
-}
-
-const mapStateToProps = (state) => {
-  return {
-    // return empty object: need this so connect
-    //  has something to pass into first argument
-  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -31,7 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const CalcButton = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Button)
 

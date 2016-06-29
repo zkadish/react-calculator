@@ -28,7 +28,7 @@ class Output extends React.Component {
   }
 
   render() {
-    console.log('output component', this.props)
+    //console.log('output component', this.props)
 
     return(
       <div className="output">{this.props.output}</div>

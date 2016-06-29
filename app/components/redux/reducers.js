@@ -1,7 +1,8 @@
-let keypadBtns = {
-  keypadBtn: ['AC', '+/-', '%', 247, '7', '8', '9', 215, '4', '5', '6', 8722, '1', '2', '3', '+', 46, '0', '=']
+let keypadDefault = {
+  keypadBtn: ['AC', '+/-', '%', 247, '7', '8', '9', 215, '4', '5', '6', 8722, '1', '2', '3', '+', 46, '0', '='],
+  activeBtn: 'AC'
 }
-export const keypadReducer = function (state = keypadBtns, action) {
+export const keypad = function (state = keypadDefault, action) {
   switch (action.type) {
     case 'BTN_PRESS':
       return {
@@ -41,11 +42,13 @@ export const outputReducer = function (state = defaultOutput, action) {
 }
 
 let defaultCommand = {
-  startSecNum: false
+  command: 'AC',
+  startSecNum: false,
+  arithmatic: ''
 }
 export const commandReducer = function (state = defaultCommand, action) {
   switch (action.type) {
-    case 'COMMAND_PRESS':
+    case 'COMMAND':
       return {
         ...state,
         command: action.value
@@ -54,6 +57,11 @@ export const commandReducer = function (state = defaultCommand, action) {
       return {
         ...state,
         startSecNum: action.value
+      }
+    case 'arithmatic':
+      return {
+        ...state,
+        arithmatic: action.value
       }
     default:
       return state

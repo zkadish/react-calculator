@@ -3,7 +3,10 @@ import './MathRound.js'
 
 // retreive the length of decimal places entered by user
 let decimalLength = function (num) {
-  let length = num.split('.')[1].length
+  if (!num.toString().includes('.')) {
+    return null
+  }
+  let length = num.toString().split('.')[1].length
   return length
 }
 
@@ -39,16 +42,16 @@ export function addFn (x, y, decLength) {
   return cleanNum(parseFloat(x) + parseFloat(y), decLength)
 }
 
-export function subtrackFn (x, y) {
-  return cleanNum(parseFloat(x) - parseFloat(y))
+export function subtrackFn (x, y, decLength) {
+  return cleanNum(parseFloat(x) - parseFloat(y), decLength)
 }
 
-export function multiplyFn (x, y) {
-  return cleanNum(parseFloat(x) * parseFloat(y))
+export function multiplyFn (x, y, decLength) {
+  return cleanNum(parseFloat(x) * parseFloat(y), decLength)
 }
 
-export function divideFn (x, y) {
-  return cleanNum(parseFloat(x) / parseFloat(y))
+export function divideFn (x, y, decLength) {
+  return cleanNum(parseFloat(x) / parseFloat(y), decLength)
 }
 
 // Toggle negitive and positive output numbers
@@ -66,24 +69,28 @@ export function negativeNums (state) {
   }
 }
 
-
-
-export function equalFn (arithmatic, store) {
-  let state = store.getState()
+export function equalFn (arithmatic, dispatch, state) {
   let output = state.outputReducer.output
   let firstNum = state.outputReducer.firstNum
   let secondNum = state.outputReducer.secondNum
+  let command = state.commandReducer.command
   let result = null
+
+  // debugger
 
   // equals with no math opperator selected
   if (typeof arithmatic !== 'function') {
     return output
   }
-
+  console.log(secondNum);
   // if user does not enter a second num and presses the equals button
+  if (!firstNum && command === '=') {
+    return arithmatic(output, secondNum, decimalLength(secondNum))
+  }
+
   if (!secondNum) {
-    result = arithmatic(output, firstNum, decimalLength(firstNum))
-    return result
+    return arithmatic(firstNum, output, decimalLength(firstNum))
+    console.log(state)
   }
 
   // user enters an equaltion with 2 numbers
@@ -93,11 +100,11 @@ export function equalFn (arithmatic, store) {
     result = arithmatic(firstNum, secondNum, decimalLength(firstNum))
   }
 
-
   // then continues press the equal button
   //state.firstNum = state.secondNum
-  store.dispatch(Action.FIRST_NUM(secondNum))
+  dispatch(Action.FIRST_NUM(''))
+  //dispatch(Action.SECOND_NUM(''))
+  console.log(state)
   //state.secondNum = ''
-  store.dispatch(Action.SECOND_NUM(''))
   return result
 }

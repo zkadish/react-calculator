@@ -1,5 +1,5 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import createStore from './redux/create-store'
 import * as Action from './redux/actions'
 
@@ -12,7 +12,7 @@ import commandHandler from './redux/commandHandler'
 import '../scss/index.scss'
 
 class App extends React.Component {
-  constructor(props) {
+  constructor() {
     super()
 
     // this.state = {
@@ -23,39 +23,13 @@ class App extends React.Component {
     //   secondNum: ''
     // }
 
-    //console.log('App props/store: ', props.store.getState())
-
-    props.store.subscribe(function () {
-      //console.log('app.props.store.subscribe:', props.store.getState())
-    })
   }
 
-  // btnPress(btn) {
-  //   if (btn.match(/[0-9.]/)) {
-  //     this.props.store.dispatch(Action.NUMBER_PRESS(btn))
-  //     //console.log(this.props.store.getState())
-  //
-  //     let newState = numberHandler(btn, this.state)
-  //     this.setState(newState)
-  //   } else {
-  //     this.props.store.dispatch(Action.COMMAND_PRESS(btn))
-  //     console.log(this.props.store.getState())
-  //
-  //     let newState = commandHandler(btn, this.state)
-  //     this.setState(newState)
-  //   }
-  // }
-
   btnHandler(btn) {
-    const store = this.props.store
-
     if (btn.match(/[0-9.]/)) {
-      //console.log('button')
-      numberHandler(btn, store)
+      this.props.dispatch(numberHandler)
     } else {
-      console.log('command')
-      store.dispatch(Action.COMMAND_PRESS(btn))
-      commandHandler(btn, store)
+      this.props.dispatch(commandHandler)
     }
   }
 
@@ -73,4 +47,6 @@ class App extends React.Component {
   }
 }
 
-export default App
+let AppMap = connect()(App)
+
+export default AppMap
