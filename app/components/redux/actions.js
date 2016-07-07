@@ -6,7 +6,14 @@ export const BTN_PRESS = (btn) => {
   }
 }
 
-// output reducer actions
+// number reducer
+export const NUMBER_PRESS = (btn) => {
+  return {
+    type: 'NUMBER_PRESS',
+    value: btn
+  }
+}
+
 export const OUTPUT = (string) => {
   return {
     type: 'OUTPUT',
@@ -24,13 +31,6 @@ export const FIRST_NUM = (string) => {
 export const SECOND_NUM = (string) => {
   return {
     type: 'SECOND_NUM',
-    value: string
-  }
-}
-
-export const RESULT = (string) => {
-  return {
-    type: 'RESULT',
     value: string
   }
 }
@@ -54,13 +54,5 @@ export const ARITHMATIC = (string) => {
   return {
     type: 'ARITHMATIC',
     value: string
-  }
-}
-
-// number reducer
-export const NUMBER_PRESS = (btn) => {
-  return {
-    type: 'NUMBER_PRESS',
-    value: btn
   }
 }

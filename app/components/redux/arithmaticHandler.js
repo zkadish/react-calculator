@@ -70,41 +70,51 @@ export function negativeNums (state) {
 }
 
 export function equalFn (arithmatic, dispatch, state) {
-  let output = state.outputReducer.output
-  let firstNum = state.outputReducer.firstNum
-  let secondNum = state.outputReducer.secondNum
-  let command = state.commandReducer.command
+  let output = state.number.output
+  let firstNum = state.number.firstNum
+  let secondNum = state.number.secondNum
+  let command = state.command.command
   let result = null
-
-  // debugger
+  let deLength = 0
+  let secondDeLength = decimalLength(secondNum) || 0
+  let firstDeLength = decimalLength(firstNum) || 0
+  let outputDeLength = decimalLength(output) || 0
 
   // equals with no math opperator selected
   if (typeof arithmatic !== 'function') {
     return output
   }
-  console.log(secondNum);
-  // if user does not enter a second num and presses the equals button
+
+  // if user just presses the equals button
+  // after entering an 2 numbers and a command
   if (!firstNum && command === '=') {
-    return arithmatic(output, secondNum, decimalLength(secondNum))
+    if (secondDeLength > outputDeLength) {
+      deLength = secondDeLength
+    } else {
+      deLength = outputDeLength
+    }
+    return arithmatic(output, secondNum, deLength)
   }
 
+  // if user doesn't enter a second number
   if (!secondNum) {
-    return arithmatic(firstNum, output, decimalLength(firstNum))
-    console.log(state)
+    if (firstDeLength > outputDeLength) {
+      deLength = firstDeLength;
+    } else {
+      deLength = outputDeLength;
+    }
+    return arithmatic(firstNum, output, deLength)
   }
 
   // user enters an equaltion with 2 numbers
-  if (decimalLength(firstNum) < decimalLength(secondNum)) {
-    result = arithmatic(firstNum, secondNum, decimalLength(secondNum))
+  if (secondDeLength < firstDeLength) {
+    result = arithmatic(firstNum, secondNum, firstDeLength)
   } else {
-    result = arithmatic(firstNum, secondNum, decimalLength(firstNum))
+    result = arithmatic(firstNum, secondNum, secondDeLength)
   }
 
-  // then continues press the equal button
-  //state.firstNum = state.secondNum
+  // only clear firstNum 
   dispatch(Action.FIRST_NUM(''))
-  //dispatch(Action.SECOND_NUM(''))
-  console.log(state)
-  //state.secondNum = ''
+
   return result
 }

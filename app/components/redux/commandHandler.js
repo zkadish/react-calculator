@@ -9,9 +9,10 @@ const divide = String.fromCharCode(247)
 let arithmatic = null
 const commandHandler = function (dispatch, getState) {
   const state = getState()
+  const firstNum = state.number.firstNum;
+  const secondNum = state.number.secondNum;
   let btn = state.keypad.activeBtn
   dispatch(Action.COMMAND(btn))
-
 
   switch (btn) {
     case 'AC':
@@ -28,11 +29,15 @@ const commandHandler = function (dispatch, getState) {
         Action.START_SECOND_NUM(true),
         Action.ARITHMATIC('addFn')
       ]))
+      if (firstNum && secondNum) {
+        dispatch(Action.OUTPUT(equalFn(arithmatic, dispatch, state)))
+        return;
+      }
       // increment the output - if command is given with
-      // no firstNum make the outout the firstNum
-      if (!state.outputReducer.firstNum) {
+      // no firstNum make the output the firstNum
+      if (!state.number.firstNum) {
         dispatch(batchActions([
-          Action.FIRST_NUM(state.outputReducer.output),
+          Action.FIRST_NUM(state.number.output),
           Action.SECOND_NUM('')
         ]))
       }
@@ -43,6 +48,14 @@ const commandHandler = function (dispatch, getState) {
         Action.START_SECOND_NUM(true),
         Action.ARITHMATIC('subtrackFn')
       ]))
+      // increment the output - if command is given with
+      // no firstNum make the output the firstNum
+      if (!state.number.firstNum) {
+        dispatch(batchActions([
+          Action.FIRST_NUM(state.number.output),
+          Action.SECOND_NUM('')
+        ]))
+      }
       break
     case '=':
       dispatch(Action.OUTPUT(equalFn(arithmatic, dispatch, state)))

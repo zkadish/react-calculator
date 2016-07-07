@@ -5,17 +5,24 @@ const numberHandler = function (dispatch, getState) {
 
   const state = getState()
   let btn = state.keypad.activeBtn
-  let output = state.outputReducer.output
-  let secondNum = state.outputReducer.secondNum
+  let output = state.number.output
+  let secondNum = state.number.secondNum
   let hasDecimal = output.toString().includes('.')
-  let lastCommand = state.commandReducer.command
-  //console.log('lastCommand', lastCommand)
-  // do not allow for more then one decimal
-  if (hasDecimal && btn === '.') {
+  let lastCommand = state.command.command
+  
+  if (hasDecimal && btn === '.' && !state.command.startSecNum) {
     return
   }
 
+  // first number
   if (output === '0' || lastCommand === '=') {
+    if (btn === '.') {
+      dispatch(batchActions([
+        Action.OUTPUT(output + btn),
+        Action.FIRST_NUM(output + btn)
+      ]))
+      return
+    }
     dispatch(batchActions([
       Action.OUTPUT(btn),
       Action.FIRST_NUM(btn)
@@ -23,7 +30,17 @@ const numberHandler = function (dispatch, getState) {
     return
   }
 
-  if (state.commandReducer.startSecNum) {
+  // second number
+  if (state.command.startSecNum) {
+    console.log('startSecNum')
+    if (btn === '.') {
+      dispatch(batchActions([
+        Action.OUTPUT('0' + btn),
+        Action.SECOND_NUM('0' + btn),
+        Action.START_SECOND_NUM(false)
+      ]))
+      return
+    }
     dispatch(batchActions([
       Action.OUTPUT(btn),
       Action.SECOND_NUM(btn),
